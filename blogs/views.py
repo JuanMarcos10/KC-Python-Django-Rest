@@ -11,7 +11,7 @@ def index_blog(request):
     context = {'index_blog': blogs}
 
     # Crear respuesta HTML con las fotos
-    html = render(request, 'index.html', context)
+    html = render(request, 'latest.html', context)
 
     # Devolver la respuesta HTTP
     return HttpResponse(html)
