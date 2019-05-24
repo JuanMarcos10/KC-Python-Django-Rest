@@ -20,3 +20,6 @@ class Blog(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     modification_date = models.DateTimeField(auto_now=True)
     category = models.CharField(max_length=3, choices=LICENSES, default=INFORMATION)
+
+    def __str__(self):
+        return self.name
