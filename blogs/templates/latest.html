@@ -22,7 +22,7 @@
             <div class=" col-md-8 col-md-10 mx-auto">
                 <div class="site-heading">
                     <h3 class=" site-heading my-4 mt-3 text-white"> Welcome to Wordplease Blog </h3>
-                    <p class="text-light">We Love Django!</p>
+                    <p class="text-light">Latest Blog Posts</p>
                 </div>
             </div>
         </div>
@@ -37,6 +37,7 @@
                     <h2 class="card-title">{{ blog.title }}</h2>
                     <p class="card-text text-muted h6">{{ blog.creation_date }} | {{ blog.creation_date }} </p>
                     <p class="card-text">{{blog.description|slice:":200" }}</p>
+
                     <img src="{{ blog.url }}" alt="{{ blog.description }}" title="{{ blog.name }}" by {{ blog.owner.first_name }} {{ blog.owner.last_name }} height="200">
                 </div>
             </div>
