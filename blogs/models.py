@@ -22,4 +22,4 @@ class Blog(models.Model):
     category = models.CharField(max_length=3, choices=LICENSES, default=INFORMATION)
 
     def __str__(self):
-        return self.name
+        return self.title
