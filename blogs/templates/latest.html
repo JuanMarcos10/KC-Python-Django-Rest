@@ -21,7 +21,7 @@
         <div class="container">
             <div class=" col-md-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 text-white"> Welcome to Wordplease Blog </h3>
+                    <h3 class=" site-heading my-4 mt-3 text-white"> Welcome to WORDPLEASE Blog </h3>
                     <p class="text-light">Latest Blog Posts</p>
                 </div>
             </div>
@@ -31,7 +31,7 @@
 <div class="container">
         <!-- Blog Entries Column -->
         <div>
-            {% for blog in index_blog %}
+            {% for blog in latest_blog %}
             <div class="card mb-4">
                 <div class="card-body">
                     <h2 class="card-title">{{ blog.title }}</h2>
