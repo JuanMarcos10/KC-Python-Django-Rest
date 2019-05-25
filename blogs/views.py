@@ -8,7 +8,7 @@ def latest_blog(request):
     blogs = Blog.objects.all().order_by('-creation_date')
 
     # Creamos el contexto para pasarle los post a la plantilla
-    context = {'latest_blog': blogs}
+    context = {'latest_blog': blogs[:5]}
 
     # Crear respuesta HTML con las posts
     html = render(request, 'latest.html', context)
