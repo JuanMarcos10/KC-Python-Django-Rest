@@ -20,12 +20,12 @@ def latest_blog(request):
 def blog_detail(request, pk):
     # Recuperar el blog seleccionado de la base de datos
     try:
-        blog = Blog.objects.get(pk=pk)
+        blogs = Blog.objects.get(pk=pk)
     except Blog.DoesNotExist:
         return HttpResponseNotFound('Post Blog does not exist')
 
     # Crear un contexto para pasar la información a la plantilla
-    context = {'blog': blog}
+    context = {'blog': blogs}
 
     # Renderizar plantilla
     html = render(request, 'detail.html', context)
