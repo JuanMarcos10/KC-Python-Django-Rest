@@ -1,11 +1,13 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% block content %}
 
 <div class="container">
     <div>
       <div class="card-body">
-        <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
-        <p class=" text-muted">{{ blog.author }} | {{ blog.creation_date }}</p>
-        <p class="card-text ">{{ object.content | safe }}</p>
+          <h1>{% block title %} {{ blog.title }} {% endblock title %}</h1>
+          <img src="{{ blog.url }}" alt="{{ blog.description }}" title="{{ blog.title }}" width="500">
+          <p class=" text-muted">{{ blog.author }} | Published on {{ blog.creation_date }}</p>
+          <p class="card-text ">{{ blog.description | safe }}</p>
       </div>
     </div>
 </div>

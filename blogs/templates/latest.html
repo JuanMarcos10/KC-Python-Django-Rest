@@ -38,7 +38,7 @@
                     <p class="card-text text-muted h6">{{ blog.creation_date }} | {{ blog.creation_date }} </p>
                     <p class="card-text">{{blog.description|slice:":200" }}</p>
 
-                    <img src="{{ blog.url }}" alt="{{ blog.description }}" title="{{ blog.name }}" by {{ blog.owner.first_name }} {{ blog.owner.last_name }} height="200">
+                    <img src="{{ blog.url }}" alt="{{ blog.description }}" title="{{ blog.title }}" by {{ blog.owner.first_name }} {{ blog.owner.last_name }} height="200">
                 </div>
             </div>
             {% endfor %}
