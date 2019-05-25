@@ -27,6 +27,7 @@
                     <p class="card-text">{{blog.description|slice:":200" }}</p>
 
                     <img src="{{ blog.url }}" alt="{{ blog.description }}" title="{{ blog.title }}" by {{ blog.owner.first_name }} {{ blog.owner.last_name }} height="200">
+                    </a>
                 </div>
             </div>
             {% endfor %}
