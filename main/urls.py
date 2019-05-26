@@ -20,6 +20,6 @@ from blogs.views import latest_blog, blog_detail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blogs/<int:pk>/', blog_detail),
-    path('', latest_blog)
+    path('blogs/<int:pk>/', blog_detail, name='blog_detail'),
+    path('', latest_blog, name='home')
 ]
