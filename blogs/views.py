@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from blogs.models import Blog
 
@@ -19,10 +19,7 @@ def latest_blog(request):
 
 def blog_detail(request, pk):
     # Recuperar el blog seleccionado de la base de datos
-    try:
-        blogs = Blog.objects.get(pk=pk)
-    except Blog.DoesNotExist:
-        return HttpResponseNotFound('Post Blog does not exist')
+    blogs = get_object_or_404(Blog, pk=pk)
 
     # Crear un contexto para pasar la información a la plantilla
     context = {'blog': blogs}
