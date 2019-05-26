@@ -14,6 +14,9 @@
     .card {
         box-shadow: 0 16px 48px #E3E7EB;
     }
+    .right {
+  float: right;
+}
 </style>
 
 <div class="container">
@@ -23,11 +26,10 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <h2 class="card-title">{{ blog.title }}</h2>
-                    <p class="card-text text-muted h6">{{ blog.creation_date }} | Published on {{ blog.creation_date|date:'d/m/Y' }} </p>
+                    <p class="card-text text-muted h6">{{ blog.creation_date }} | Published on {{ blog.creation_date|date:'d/m/Y' }}</p>
                     <p class="card-text">{{blog.description|slice:":200" }}</p>
-                    <a href="{% url 'blog_detail' blog.pk %}">
                     <img src="{{ blog.url }}" alt="{{ blog.description }}" title="{{ blog.title }}" by {{ blog.owner.first_name }} {{ blog.owner.last_name }} height="200">
-                    </a>
+                    <a href="{% url 'blog_detail' blog.pk %}" class="right"> Read More &rarr;</a>
                 </div>
             </div>
             {% endfor %}
