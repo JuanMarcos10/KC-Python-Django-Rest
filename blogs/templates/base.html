@@ -13,36 +13,39 @@
     <body>
         <style>
             body {
-            font-family: "Open Sans", sans-serif;
-            font-size: 15px;
-            background-color: #fdfdfd;
-        }
-        .masthead {
-            background: #3398E1;
-            height: auto;
-            padding-bottom: 15px;
-            box-shadow: 0 16px 48px #E3E7EB;
-            padding-top: 10px;
-        }
-        .footer_text {
-            color: gray;
-        }
-        ul {
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-          overflow: hidden;
-        }
-        li {
-          float: left;
-        }
-        li a {
-              display: block;
-              color: white;
-              text-align: center;
-              padding: 14px 16px;
-              text-decoration: none;
-        }
+                font-family: "Open Sans", sans-serif;
+                font-size: 15px;
+                background-color: #fdfdfd;
+            }
+            .masthead {
+                background: #3398E1;
+                height: auto;
+                padding-bottom: 15px;
+                box-shadow: 0 16px 48px #E3E7EB;
+                padding-top: 10px;
+            }
+            .footer_text {
+                color: gray;
+            }
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            li {
+                float: left;
+            }
+            li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+            .login-card {
+                margin: 10px 10px;
+            }
     </style>
 <header class="masthead">
     <div class="overlay">
@@ -55,9 +58,10 @@
                             <li><a style="text-decoration: none" href="{% url 'home' %}">Home</p></a>
                             <li><a style="text-decoration: none" href="{% url 'blog_all' %}">Blogs</p></a>
                             <li><a style="text-decoration: none" href="{% url 'home' %}">New Post</p></a>
-                            <li><a style="text-decoration: none" href="{% url 'login' %}">Login</p></a>
-                            <li><a style="text-decoration: none" href="{% url 'home' %}">Logout</p></a>
                             <li><a style="text-decoration: none" href="{% url 'home' %}">Signup</p></a>
+                            {% if user.is_authenticated %} <li><a style="text-decoration: none" href="{% url 'logout' %}">Logout</a></li>
+                            {% else %} <li><a style="text-decoration: none" href="{% url 'login' %}">Login</a></li>
+                            {% endif %}
                         </ul>
                 </div>
             </div>
