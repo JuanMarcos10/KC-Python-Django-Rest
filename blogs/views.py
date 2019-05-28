@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404
 
@@ -48,7 +49,9 @@ def blog_all(request):
     return HttpResponse(html)
 
 
+@login_required
 def new_blog(request):
+
     if request.method == 'POST':
         blog = Blog()
         blog.owner = request.user
