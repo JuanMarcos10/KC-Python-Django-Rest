@@ -12,12 +12,7 @@
     <form method="post">
         {% csrf_token %}
 
-            <div class="login-card">Username:
-                <input type="text" name="usr" placeholder="Username" required>
-            </div>
-            <div class="login-card">Password:
-                <input type="password" name="pwd" placeholder="Password" required>
-            </div>
+            {{ form.as_p }}
             <div class="login-card">
                 <button class="btn btn-primary" type="submit">Login</button>
             </div>
