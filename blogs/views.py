@@ -66,7 +66,7 @@ class BlogListView(View):
         context = {'latest_blog': blogs}
 
         # Crear respuesta HTML con las posts
-        html = render(request, 'latest.html', context)
+        html = render(request, 'list.html', context)
 
         # Devolver la respuesta HTTP
         return HttpResponse(html)

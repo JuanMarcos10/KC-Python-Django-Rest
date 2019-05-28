@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    body {
+        font-family: "Open Sans", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+    
+    .head_text {
+        color: white;
+    }
+    
+    .card {
+        box-shadow: 0 16px 48px #E3E7EB;
+    }
+    .right {
+  float: right;
+}
+</style>
+
+<div class="container">
+        <!-- Blog Entries Column -->
+        <div>
+            {% for blog in latest_blog %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">{{ blog.title }} </h4>
+                    <h5 class="card-title"> {{ blog.text }}</h5>
+                    <p class="card-text text-muted h6">{{ blog.owner }} | Published on {{ blog.creation_date|date:'d/m/Y' }}</p>
+                    <p class="card-text">{{blog.description|slice:":25" }}
+                    <a href="{% url 'blog_detail' blog.pk %}" class="right"> Read More &rarr;</a></p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+</div>
+{%endblock%}
