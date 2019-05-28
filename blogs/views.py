@@ -1,7 +1,10 @@
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404
 
+from blogs.forms import BlogForm
 from blogs.models import Blog
+
 
 def latest_blog(request):
     # Recuperamos los últimos posts de la base de datos
@@ -30,6 +33,7 @@ def blog_detail(request, pk):
     # Devolver respuesta HTTP
     return HttpResponse(html)
 
+
 def blog_all(request):
     # Recuperamos los últimos posts de la base de datos
     blogs = Blog.objects.all().order_by('-creation_date')
@@ -42,3 +46,16 @@ def blog_all(request):
 
     # Devolver la respuesta HTTP
     return HttpResponse(html)
+
+
+def new_blog(request):
+    if request.method == 'POST':
+        form = BlogForm(request.POST)
+        if form.is_valid():
+            new_blog = form.save()
+            messages.success(request, 'Post creado correctamente con ID {0}'.format(new_blog.pk))
+            form = BlogForm()
+    else:
+        form = BlogForm()
+    context = {'form': form}
+    return render(request, 'new-post.html', context)

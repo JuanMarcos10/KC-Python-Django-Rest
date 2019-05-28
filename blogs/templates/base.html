@@ -57,7 +57,7 @@
                         <ul>
                             <li><a style="text-decoration: none" href="{% url 'home' %}">Home</p></a>
                             <li><a style="text-decoration: none" href="{% url 'blog_all' %}">Blogs</p></a>
-                            <li><a style="text-decoration: none" href="{% url 'home' %}">New Post</p></a>
+                            <li><a style="text-decoration: none" href="{% url 'new_blog' %}">New Post</p></a>
                             <li><a style="text-decoration: none" href="{% url 'home' %}">Signup</p></a>
                             {% if user.is_authenticated %} <li><a style="text-decoration: none" href="{% url 'logout' %}">Logout</a></li>
                             {% else %} <li><a style="text-decoration: none" href="{% url 'login' %}">Login</a></li>

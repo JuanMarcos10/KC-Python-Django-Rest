@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block head_title %} New blog {% endblock %}
+{% block main_title %} New blog {% endblock %}
+
+{% block content %}
+    {% for message in messages %}
+        <p style="color:green">{{ message }}</p>
+    {% endfor %}
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Post</button>
+    </form>
+{% endblock %} 
