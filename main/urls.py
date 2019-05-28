@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from blogs.views import latest_blog, blog_detail, blog_all, new_blog
+from blogs.views import LatestBlogsView, BlogDetailView, NewBlogView, BlogListView
 from users.views import LoginView, LogoutView
 
 urlpatterns = [
@@ -26,8 +26,8 @@ urlpatterns = [
     path('logout', LogoutView.as_view(), name='logout'),
 
     # Blogs
-    path('new-post', new_blog, name='new_blog'),
-    path('blogs/<int:pk>/', blog_detail, name='blog_detail'),
-    path('', latest_blog, name='home'),
-    path('blogs/', blog_all, name='blog_all')
+    path('new-post', NewBlogView.as_view(), name='new_blog'),
+    path('blogs/<int:pk>/', BlogDetailView.as_view(), name='blog_detail'),
+    path('', LatestBlogsView.as_view(), name='home'),
+    path('blogs/', BlogListView.as_view(), name='blog_all')
 ]

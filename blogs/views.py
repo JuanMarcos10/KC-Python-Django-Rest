@@ -1,58 +1,51 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseNotFound
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.views import View
 
 from blogs.forms import BlogForm
 from blogs.models import Blog
 
 
-def latest_blog(request):
-    # Recuperamos los últimos posts de la base de datos
-    blogs = Blog.objects.all().order_by('-creation_date')
+class LatestBlogsView(View):
+    def get(self, request):
+        # Recuperamos los últimos posts de la base de datos
+        blogs = Blog.objects.all().order_by('-creation_date')
 
-    # Creamos el contexto para pasarle los post a la plantilla
-    context = {'latest_blog': blogs[:5]}
+        # Creamos el contexto para pasarle los post a la plantilla
+        context = {'latest_blog': blogs[:5]}
 
-    # Crear respuesta HTML con las posts
-    html = render(request, 'latest.html', context)
+        # Crear respuesta HTML con las posts
+        html = render(request, 'latest.html', context)
 
-    # Devolver la respuesta HTTP
-    return HttpResponse(html)
-
-
-def blog_detail(request, pk):
-    # Recuperar el blog seleccionado de la base de datos
-    blogs = get_object_or_404(Blog, pk=pk)
-
-    # Crear un contexto para pasar la información a la plantilla
-    context = {'blog': blogs}
-
-    # Renderizar plantilla
-    html = render(request, 'detail.html', context)
-
-    # Devolver respuesta HTTP
-    return HttpResponse(html)
+        # Devolver la respuesta HTTP
+        return HttpResponse(html)
 
 
-def blog_all(request):
-    # Recuperamos los últimos posts de la base de datos
-    blogs = Blog.objects.all().order_by('-creation_date')
+class BlogDetailView(View):
+    def get(self, request, pk):
+        # Recuperar el blog seleccionado de la base de datos
+        blogs = get_object_or_404(Blog, pk=pk)
 
-    # Creamos el contexto para pasarle los post a la plantilla
-    context = {'latest_blog': blogs}
+        # Crear un contexto para pasar la información a la plantilla
+        context = {'blog': blogs}
 
-    # Crear respuesta HTML con las posts
-    html = render(request, 'latest.html', context)
+        # Renderizar plantilla
+        html = render(request, 'detail.html', context)
 
-    # Devolver la respuesta HTTP
-    return HttpResponse(html)
+        # Devolver respuesta HTTP
+        return HttpResponse(html)
 
 
-@login_required
-def new_blog(request):
+class NewBlogView(LoginRequiredMixin, View):
 
-    if request.method == 'POST':
+    def get(self, request):
+        form = BlogForm()
+        context = {'form': form}
+        return render(request, 'new-post.html', context)
+
+    def post(self, request):
         blog = Blog()
         blog.owner = request.user
         form = BlogForm(request.POST, instance=blog)
@@ -60,7 +53,20 @@ def new_blog(request):
             new_blog = form.save()
             messages.success(request, 'Post creado correctamente con ID {0}'.format(new_blog.pk))
             form = BlogForm()
-    else:
-        form = BlogForm()
-    context = {'form': form}
-    return render(request, 'new-post.html', context)
+        context = {'form': form}
+        return render(request, 'new-post.html', context)
+
+
+class BlogListView(View):
+    def get(self, request):
+        # Recuperamos los últimos posts de la base de datos
+        blogs = Blog.objects.all().order_by('-creation_date')
+
+        # Creamos el contexto para pasarle los post a la plantilla
+        context = {'latest_blog': blogs}
+
+        # Crear respuesta HTML con las posts
+        html = render(request, 'latest.html', context)
+
+        # Devolver la respuesta HTTP
+        return HttpResponse(html)
