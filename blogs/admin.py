@@ -4,8 +4,8 @@ from blogs.models import Blog
 
 
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ('title', 'id', 'text', 'creation_date')
-    list_filter = ('category',)
+    list_display = ('title', 'id', 'text', 'owner', 'creation_date')
+    list_filter = ('owner', 'category',)
     search_fields = ['title', 'description']
 
 

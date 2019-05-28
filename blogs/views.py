@@ -50,7 +50,9 @@ def blog_all(request):
 
 def new_blog(request):
     if request.method == 'POST':
-        form = BlogForm(request.POST)
+        blog = Blog()
+        blog.owner = request.user
+        form = BlogForm(request.POST, instance=blog)
         if form.is_valid():
             new_blog = form.save()
             messages.success(request, 'Post creado correctamente con ID {0}'.format(new_blog.pk))

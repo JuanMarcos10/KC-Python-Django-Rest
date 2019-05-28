@@ -26,7 +26,8 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <h2 class="card-title">{{ blog.title }}</h2>
-                    <p class="card-text text-muted h6">{{ blog.creation_date }} | Published on {{ blog.creation_date|date:'d/m/Y' }}</p>
+                    <h4 class="card-title"> {{ blog.text }}</h4>
+                    <p class="card-text text-muted h6">{{ blog.owner }} | Published on {{ blog.creation_date|date:'d/m/Y' }}</p>
                     <p class="card-text">{{blog.description|slice:":200" }}</p>
                     <a href="{% url 'blog_detail' blog.pk %}">
                     <img src="{{ blog.url }}" alt="{{ blog.description }}" title="{{ blog.title }}" by {{ blog.owner.first_name }} {{ blog.owner.last_name }} height="200"></a>
