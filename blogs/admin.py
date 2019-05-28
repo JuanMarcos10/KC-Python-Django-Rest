@@ -3,6 +3,9 @@ from django.utils.safestring import mark_safe
 
 from blogs.models import Blog
 
+admin.site.site_title = 'Wordplease Admin System'
+admin.site.site_header = 'Wordplease Admin System'
+admin.site.index_title = 'Wordplease Admin System'
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
