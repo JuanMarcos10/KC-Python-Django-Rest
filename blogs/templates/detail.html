@@ -6,9 +6,10 @@
       <div class="card-body">
           <h1>{% block title %} {{ blog.title }} {% endblock title %}</h1>
           <img src="{{ blog.url }}" alt="{{ blog.description }}" title="{{ blog.title }}" width="400">
-          <p class=" text-muted">{{ blog.owner }} | Published on {{ blog.creation_date|date:'d/m/Y' }}</p>
+          <p class=" text-muted"> </p>
           <h4 class="card-title"> {{ blog.text }}</h4>
           <p class="card-text ">{{ blog.description | safe }} </p>
+          <p class=" text-muted">{{ blog.owner }} | Published on {{ blog.creation_date|date:'d/m/Y'}} by {{ blog.owner.first_name }} {{ blog.owner.last_name }}</p>
           <a href="{% url 'home' %}" class="btn btn-primary"> Return</a>
       </div>
     </div>
