@@ -11,7 +11,7 @@ from blogs.models import Blog
 class LatestBlogsView(View):
     def get(self, request):
         # Recuperamos los últimos posts de la base de datos
-        blogs = Blog.objects.all().order_by('-creation_date')
+        blogs = Blog.objects.all().order_by('-creation_date').select_related('owner')
 
         # Creamos el contexto para pasarle los post a la plantilla
         context = {'latest_blog': blogs[:5]}
@@ -26,7 +26,7 @@ class LatestBlogsView(View):
 class BlogDetailView(View):
     def get(self, request, pk):
         # Recuperar el blog seleccionado de la base de datos
-        blogs = get_object_or_404(Blog, pk=pk)
+        blogs = get_object_or_404(Blog.objects.select_related('owner'), pk=pk)
 
         # Crear un contexto para pasar la información a la plantilla
         context = {'blog': blogs}

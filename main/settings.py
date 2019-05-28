@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blogs',
-    'users'
+    'users',
+    'ui'
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,6 @@ STATIC_URL = '/static/'
 
 # Login URL
 LOGIN_URL = 'login'
+
+
+# Logging SQL --> no inlcuido
