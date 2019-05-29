@@ -71,3 +71,20 @@ class BlogListView(View):
 
         # Devolver la respuesta HTTP
         return HttpResponse(html)
+
+
+class UserBlogView(View):
+    def get(self, request, owner):
+        # Recuperar el blog seleccionado de la base de datos
+        blogs = Blog.objects.all().order_by('-creation_date')
+        owner = owner
+
+        # Crear un contexto para pasar la información a la plantilla
+        context = dict(owner=owner, blog=blogs)
+
+        # Renderizar plantilla
+        html = render(request, 'latest.html', context)
+
+        # Devolver respuesta HTTP
+        return HttpResponse(html)
+
