@@ -24,12 +24,13 @@ class LatestBlogsView(View):
 
 
 class BlogDetailView(View):
-    def get(self, request, pk):
+    def get(self, request, pk, owner):
         # Recuperar el blog seleccionado de la base de datos
         blogs = get_object_or_404(Blog.objects.select_related('owner'), pk=pk)
+        owner = owner
 
         # Crear un contexto para pasar la información a la plantilla
-        context = {'blog': blogs}
+        context = dict(owner=owner, blog=blogs)
 
         # Renderizar plantilla
         html = render(request, 'detail.html', context)

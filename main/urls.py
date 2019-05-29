@@ -27,7 +27,7 @@ urlpatterns = [
 
     # Blogs
     path('new-post', NewBlogView.as_view(), name='new_blog'),
-    path('blogs/<int:pk>/', BlogDetailView.as_view(), name='blog_detail'),
+    path('blogs/<str:owner>/<int:pk>/', BlogDetailView.as_view(), name='blog_detail'),
     path('', LatestBlogsView.as_view(), name='home'),
     path('blogs/', BlogListView.as_view(), name='blog_all')
 ]
