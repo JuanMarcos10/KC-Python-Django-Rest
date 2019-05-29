@@ -2,6 +2,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as django_login, logout as django_logout
+from django.contrib.auth.forms import UserCreationForm
+
 from django.views import View
 
 from users.forms import LoginForm
@@ -43,3 +45,8 @@ class LogoutView(View):
     def get(self, request):
         django_logout(request)
         return redirect('login')
+
+
+def Signup(request):
+    form = UserCreationForm
+    return render(request=request, template_name="signup.html", context={"form": form})
