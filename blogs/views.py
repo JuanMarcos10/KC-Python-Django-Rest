@@ -1,8 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import QuerySet
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views import View
+from django.views.generic import ListView
 
 from blogs.forms import BlogForm
 from blogs.models import Blog
@@ -40,7 +42,6 @@ class BlogDetailView(View):
 
 
 class NewBlogView(LoginRequiredMixin, View):
-
     def get(self, request):
         form = BlogForm()
         context = {'form': form}
@@ -72,19 +73,14 @@ class BlogListView(View):
         # Devolver la respuesta HTTP
         return HttpResponse(html)
 
-# ESTO SIGUE SIN FUNCIONAR BIEN !!!
-class UserBlogView(View):
-    def get(self, request, owner):
-        # Recuperar el blog seleccionado de la base de datos
-        blogs = Blog.objects.all().order_by('-creation_date')
-        owner = owner
 
-        # Crear un contexto para pasar la información a la plantilla
-        context = dict(owner=owner, blog=blogs)
+# --------------- TOCAR AQUI --------------------
+class UserBlogView(ListView):
 
-        # Renderizar plantilla
-        html = render(request, 'latest.html', context)
+    template_name = 'blogusuario.html'
 
-        # Devolver respuesta HTTP
-        return HttpResponse(html)
-
+    def get_queryset(self):
+        queryset = Blog.objects.select_related('owner').order_by('-creation_date')
+        userlist = self.request.user
+        queryset = queryset.filter(owner=userlist)
+        return queryset

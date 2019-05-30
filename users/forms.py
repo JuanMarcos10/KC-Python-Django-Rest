@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.forms import CharField
 
 
 class LoginForm(forms.Form):
@@ -10,12 +11,12 @@ class LoginForm(forms.Form):
 
 class SignUpForm(forms.Form):
     username = forms.CharField(max_length=30, required=True, help_text='Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only..')
-    first_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only..')
-    last_name = forms.CharField(max_length=30, required=True, help_text='Optional.')
+    first_name: CharField = forms.CharField(max_length=30, required=False, help_text='Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only..')
+    last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
-    password = forms.CharField(widget=forms.PasswordInput)
-    password_repeat = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(required=True, widget=forms.PasswordInput())
+    password_repeat = forms.CharField(required=True, widget=forms.PasswordInput())
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+        fields = ('username', 'first_name', 'last_name', 'email', 'password', 'password_repeat', )
