@@ -64,13 +64,12 @@ class SignUpView(View):
             user = User.objects.create_user(
                 form.cleaned_data['username'],
                 form.cleaned_data['email'],
-                form.cleaned_data['password']
+                form.cleaned_data['password'],
             )
-
             user.refresh_from_db()
             user.save()
             username = form.cleaned_data.get('username')
-            password = 'supersegura'
+            password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is None:
                 messages.error(request, 'Usuario/contraseña incorrectos')
