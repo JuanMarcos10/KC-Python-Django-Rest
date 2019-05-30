@@ -13,7 +13,6 @@ class SignUpForm(forms.Form):
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
     last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
-    pwd = forms.CharField(label='Password', widget=forms.PasswordInput())
 
     class Meta:
         model = User

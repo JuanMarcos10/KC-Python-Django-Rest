@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as django_login, logout as django_logout
 
@@ -58,17 +59,20 @@ class SignUpView(View):
         return self.render_template_with_form(request, form)
 
     def post(self, request):
-        if request.user.is_authenticated:
-            return redirect('home')
-
-            form = SignUpForm(request.POST)
-            if form.is_valid():
-                form.save()
-                username = form.cleaned_data.get('username')
-                raw_password = form.cleaned_data.get('password1')
-                user = authenticate(username=username, password=raw_password)
-                django_login(request, user)
-                return redirect('home')
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = User.objects.create_user(form.cleaned_data['username'], form.cleaned_data['email'])
+            user.refresh_from_db()
+            user.save()
+            username = form.cleaned_data.get('usr')
+            raw_password = form.cleaned_data.get('pwd')
+            user = authenticate(username=username, password=raw_password)
+            if user is None:
+                messages.error(request, 'Usuario/contraseña incorrectos')
             else:
-                form = SignUpForm()
-            return render(request, 'signup.html', {'form': form})
+                django_login(request, user)
+                url = request.GET.get('next', 'home')
+                return redirect(url)
+
+        return self.render_template_with_form(request, form)
+

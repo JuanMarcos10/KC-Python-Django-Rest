@@ -8,6 +8,8 @@
         <p style="color:red">{{ message }}</p>
     {% endfor %}
 <div class="container">
+<div>
+    <h2>Login</h2>
     <div class="card-body">
     <form method="post">
         {% csrf_token %}
@@ -17,6 +19,7 @@
                 <button class="btn btn-primary" type="submit">Login</button>
             </div>
     </form>
+    </div>
     </div>
 </div>
 {% endblock %}
