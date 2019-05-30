@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import QuerySet
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 from django.views.generic import ListView
@@ -74,13 +74,12 @@ class BlogListView(View):
         return HttpResponse(html)
 
 
-# --------------- TOCAR AQUI --------------------
 class UserBlogView(ListView):
 
     template_name = 'blogusuario.html'
 
     def get_queryset(self):
         queryset = Blog.objects.select_related('owner').order_by('-creation_date')
-        userlist = self.request.user
-        queryset = queryset.filter(owner=userlist)
+        if self.request.user.is_authenticated:
+            queryset = queryset.filter(owner=self.request.user)
         return queryset
