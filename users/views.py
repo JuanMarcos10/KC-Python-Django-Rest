@@ -61,12 +61,17 @@ class SignUpView(View):
     def post(self, request):
         form = SignUpForm(request.POST)
         if form.is_valid():
-            user = User.objects.create_user(form.cleaned_data['username'], form.cleaned_data['email'])
+            user = User.objects.create_user(
+                form.cleaned_data['username'],
+                form.cleaned_data['email'],
+                form.cleaned_data['password']
+            )
+
             user.refresh_from_db()
             user.save()
-            username = form.cleaned_data.get('usr')
-            raw_password = form.cleaned_data.get('pwd')
-            user = authenticate(username=username, password=raw_password)
+            username = form.cleaned_data.get('username')
+            password = 'supersegura'
+            user = authenticate(username=username, password=password)
             if user is None:
                 messages.error(request, 'Usuario/contraseña incorrectos')
             else:
