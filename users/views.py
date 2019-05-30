@@ -2,15 +2,13 @@ from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as django_login, logout as django_logout
-from django.contrib.auth.forms import UserCreationForm
 
 from django.views import View
 
-from users.forms import LoginForm
+from users.forms import LoginForm, SignUpForm
 
 
 class LoginView(View):
-
     def render_template_with_form(self, request, form):
         context = {'form': form}
         return render(request, 'login.html', context)
@@ -47,6 +45,30 @@ class LogoutView(View):
         return redirect('login')
 
 
-def Signup(request):
-    form = UserCreationForm
-    return render(request=request, template_name="signup.html", context={"form": form})
+class SignUpView(View):
+    def render_template_with_form(self, request, form):
+        context = {'form': form}
+        return render(request, 'signup.html', context)
+
+    def get(self, request):  # Sólo se ejecutará cuando el método de la petición HTTP sea GET
+        if request.user.is_authenticated:
+            return redirect('home')
+
+        form = SignUpForm()
+        return self.render_template_with_form(request, form)
+
+    def post(self, request):
+        if request.user.is_authenticated:
+            return redirect('home')
+
+            form = SignUpForm(request.POST)
+            if form.is_valid():
+                form.save()
+                username = form.cleaned_data.get('username')
+                raw_password = form.cleaned_data.get('password1')
+                user = authenticate(username=username, password=raw_password)
+                django_login(request, user)
+                return redirect('home')
+            else:
+                form = SignUpForm()
+            return render(request, 'signup.html', {'form': form})

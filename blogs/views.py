@@ -72,7 +72,7 @@ class BlogListView(View):
         # Devolver la respuesta HTTP
         return HttpResponse(html)
 
-
+# ESTO SIGUE SIN FUNCIONAR BIEN !!!
 class UserBlogView(View):
     def get(self, request, owner):
         # Recuperar el blog seleccionado de la base de datos
