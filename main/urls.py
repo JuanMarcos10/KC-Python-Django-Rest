@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from blogs.views import LatestBlogsView, BlogDetailView, NewBlogView, BlogListView, UserBlogView
-from users.api import UsersAPI
+from users.api import UsersAPI, UserDetailAPI
 from users.views import LoginView, LogoutView, SignUpView
 
 urlpatterns = [
@@ -35,5 +35,6 @@ urlpatterns = [
     path('blogs/<str:owner>/', UserBlogView.as_view(), name='userblog'),
 
     # API
+    path('api/users/<int:pk>', UserDetailAPI.as_view(), name='user_detail_api'),
     path('api/users/', UsersAPI.as_view(), name='user_api')
 ]
