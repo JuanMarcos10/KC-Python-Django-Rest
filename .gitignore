@@ -5,3 +5,8 @@ venv/
 # PyCharm & VSCode
 .idea/
 .vscode/
+
+# SQL
+.sqlite
+
+__pycache__
