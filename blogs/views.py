@@ -74,12 +74,16 @@ class BlogListView(View):
         return HttpResponse(html)
 
 
-class UserBlogView(ListView):
-
-    template_name = 'blogusuario.html'
+class BlogList(object):
 
     def get_queryset(self):
         queryset = Blog.objects.select_related('owner').order_by('-creation_date')
         if self.request.user.is_authenticated:
             queryset = queryset.filter(owner=self.request.user)
         return queryset
+
+
+class UserBlogView(BlogList, ListView):
+
+    template_name = 'blogusuario.html'
+

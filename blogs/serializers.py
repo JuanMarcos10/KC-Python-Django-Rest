@@ -16,4 +16,4 @@ class BlogSerializer(ModelSerializer):
         model = Blog
         fields = ['id', 'owner', 'title', 'url', 'description', 'creation_date', 'modification_date',
                   'category']
-        read_only_fields = ['id', 'creation_date', 'modification_date']
+        read_only_fields = ['id', 'creation_date', 'modification_date', 'owner']
