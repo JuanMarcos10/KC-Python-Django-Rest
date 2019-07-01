@@ -1,10 +1,10 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.forms import CharField
 
 
 class LoginForm(forms.Form):
-
     usr = forms.CharField(label='Username')
     pwd = forms.CharField(label='Password', widget=forms.PasswordInput())
 
@@ -16,6 +16,11 @@ class SignUpForm(forms.Form):
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
     password = forms.CharField(required=True, widget=forms.PasswordInput())
     password_repeat = forms.CharField(required=True, widget=forms.PasswordInput())
+
+    def clean(self):
+        if User.objects.filter(username=self.cleaned_data['username']).exists():
+            raise ValidationError("This username already exists")
+        return self.cleaned_data
 
     class Meta:
         model = User

@@ -43,7 +43,7 @@ class UserDetailAPI(APIView):
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def put (self, request, pk):
+    def put(self, request, pk):
         user = get_object_or_404(User, pk=pk)
         self.check_object_permissions(request, user)
         serializer = WriteUserSerializer(user, data=request.data)
