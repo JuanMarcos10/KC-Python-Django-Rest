@@ -14,6 +14,14 @@ class Blog(models.Model):
         [NOTE, 'Note']
     ]
 
+    PUBLIC = 'PUB'
+    PRIVATE = 'PRI'
+
+    VISIBILITY = [
+        [PUBLIC, 'Public'],
+        [PRIVATE, 'Private']
+    ]
+
     title = models.CharField(max_length=150)
     text = models.CharField(max_length=150)
     description = models.TextField(null=True, blank=True)
@@ -22,6 +30,7 @@ class Blog(models.Model):
     modification_date = models.DateTimeField(auto_now=True)
     category = models.CharField(max_length=3, choices=LICENSES, default=INFORMATION)
     owner = models.ForeignKey(User, related_name='blogs', on_delete=models.CASCADE)
+    visibility = models.CharField(max_length=3, choices=VISIBILITY, default=PUBLIC)
 
     def __str__(self):
         return self.title

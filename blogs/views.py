@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import QuerySet
-from django.http import HttpResponse, request
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 from django.views.generic import ListView
@@ -13,7 +13,7 @@ from blogs.models import Blog
 class LatestBlogsView(View):
     def get(self, request):
         # Recuperamos los últimos posts de la base de datos
-        blogs = Blog.objects.all().order_by('-creation_date').select_related('owner')
+        blogs = Blog.objects.filter(visibility=Blog.PUBLIC).order_by('-creation_date').select_related('owner')
 
         # Creamos el contexto para pasarle los post a la plantilla
         context = {'latest_blog': blogs[:5]}
@@ -28,7 +28,7 @@ class LatestBlogsView(View):
 class BlogDetailView(View):
     def get(self, request, pk, owner):
         # Recuperar el blog seleccionado de la base de datos
-        blogs = get_object_or_404(Blog.objects.select_related('owner'), pk=pk)
+        blogs = get_object_or_404(Blog.objects.select_related('owner'), pk=pk, visibility=Blog.PUBLIC)
         owner = owner
 
         # Crear un contexto para pasar la información a la plantilla

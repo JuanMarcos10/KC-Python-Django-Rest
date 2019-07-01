@@ -19,7 +19,7 @@ class BlogAdmin(admin.ModelAdmin):
             'fields': ['title', 'text', 'get_img', 'url']
         }],
         ['Properties', {
-            'fields': ['owner', 'category']
+            'fields': ['owner', 'category', 'visibility']
         }],
         ['Description', {
             'fields': ['description']
