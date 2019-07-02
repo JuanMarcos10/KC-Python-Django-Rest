@@ -39,6 +39,7 @@ class LoginView(View):
 
         return self.render_template_with_form(request, form)
 
+
 class LogoutView(View):
     def get(self, request):
         django_logout(request)
